@@ -1,0 +1,7 @@
+button {
+  background-color: yellow;
+}
+
+button:focus {
+  background-color: orange;
+}
