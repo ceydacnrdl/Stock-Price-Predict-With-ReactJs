@@ -15,7 +15,6 @@ export default function SignPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Boş alan kontrolü
     if (!values.email.trim() || !values.password.trim()) {
       alert("Email and password are required.");
       return;

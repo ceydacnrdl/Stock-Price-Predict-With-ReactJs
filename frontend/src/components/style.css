@@ -5,3 +5,30 @@ button {
 button:focus {
   background-color: orange;
 }
+
+.stock-marquee {
+  display: flex;
+  overflow: hidden;
+}
+
+.stock-item {
+  margin-right: 20px; /* İlgili stil ayarlamalarını yapabilirsiniz */
+  white-space: nowrap; /* Metinlerin yan yana kaymasını sağlamak için */
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.centered-marquee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

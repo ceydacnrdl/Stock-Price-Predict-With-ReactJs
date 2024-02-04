@@ -1,40 +1,132 @@
-import React from "react";
+// import React from "react";
+// import {
+//   Card,
+//   CardImg,
+//   CardBody,
+//   CardTitle,
+//   CardSubtitle,
+//   CardText,
+//   Button,
+//   CardGroup,
+// } from "reactstrap";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 
-const News = (props) => {
-  const { newsData } = props;
+// function News() {
+//   const [newsData, setNewsData] = useState([]);
+//   axios.defaults.withCredentials = true;
+
+//   useEffect(() => {
+//     axios
+//       .get("http://localhost:8081/news")
+//       .then((response) => {
+//         setNewsData(response.data.result);
+//       })
+//       .catch((error) => {
+//         console.error("Error getting news data:", error.message);
+//       });
+//   }, []);
+
+//   const chunkArray = (arr, chunkSize) => {
+//     const result = [];
+//     for (let i = 0; i < arr.length; i += chunkSize) {
+//       result.push(arr.slice(i, i + chunkSize));
+//     }
+//     return result;
+//   };
+
+//   const chunkedNewsData = chunkArray(newsData, 3);
+
+//   return (
+//     <div className="w-[1250px] h-[929px] left-[269px] top-[95px] absolute">
+//       {chunkedNewsData.map((row, rowIndex) => (
+//         <CardGroup className="row" key={rowIndex}>
+//           {row.map((news, colIndex) => (
+//             <Card key={colIndex} className="col-sm-4">
+//               <CardImg alt="Card image cap" src={news.image} top width="100%" />
+//               <CardBody>
+//                 <CardTitle tag="h5">{news.name}</CardTitle>
+//                 <CardSubtitle className="mb-2 text-muted" tag="h6">
+//                   {news.source}
+//                 </CardSubtitle>
+//                 <CardText>{news.description}</CardText>
+//               </CardBody>
+//             </Card>
+//           ))}
+//         </CardGroup>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default News;
+import React from "react";
+import {
+  Card,
+  CardImg,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  Button,
+  CardGroup,
+} from "reactstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+function News() {
+  const [newsData, setNewsData] = useState([]);
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/news")
+      .then((response) => {
+        setNewsData(response.data.result);
+      })
+      .catch((error) => {
+        console.error("Error getting news data:", error.message);
+      });
+  }, []);
+
+  const chunkArray = (arr, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      result.push(arr.slice(i, i + chunkSize));
+    }
+    return result;
+  };
+
+  const chunkedNewsData = chunkArray(newsData, 3);
 
   return (
     <div className="w-[1250px] h-[929px] left-[269px] top-[95px] absolute">
-      {newsData.map((newsData, index) => (
-        <a
-          className="w-[1240px] h-[140px] justify-start items-start inline-flex"
-          href={newsData.url}
-        >
-          <div className="grow shrink basis-0 self-stretch flex-col justify-start items-start  inline-flex">
-            <div className="self-stretch justify-start items-start  inline-flex">
-              <div className="grow shrink basis-0 pr-2.5 flex-col justify-start items-start gap-[5px] inline-flex">
-                <div className="self-stretch text-zinc-800 text-lg font-bold font-['Helvetica'] leading-normal">
-                  Headline text can run the width of the article area and wrap
-                  if it’s multiple lines
-                </div>
-                <div className="self-stretch text-zinc-800 text-[13px] font-normal font-['Helvetica'] leading-[18.20px]">
-                  Body text of this article can run the width of this article an
-                  padding from the image - as well as wrap if this is multiple
-                  lines.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="justify-end items-center flex">
-            <img
-              className="w-[180px] h-60 bg-black bg-opacity-20"
-              src={newsData.image}
-            />
-          </div>
-        </a>
+      {chunkedNewsData.map((row, rowIndex) => (
+        <CardGroup className="row" key={rowIndex}>
+          {row.map((news, colIndex) => (
+            <Card key={colIndex} className="col-sm-4">
+              {/* Tıklanabilirlik için a etiketi ekleyin */}
+              <a href={news.url} className="no-underline ">
+                <CardImg
+                  alt="Card image cap"
+                  src={news.image}
+                  top
+                  width="100%"
+                />
+                <CardBody>
+                  <CardTitle tag="h5">{news.name}</CardTitle>
+                  <CardSubtitle className="mb-2 text-muted" tag="h6">
+                    {news.source}
+                  </CardSubtitle>
+                  <CardText>{news.description}</CardText>
+                </CardBody>
+              </a>
+            </Card>
+          ))}
+        </CardGroup>
       ))}
     </div>
   );
-};
+}
 
 export default News;

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
@@ -61,7 +62,7 @@ export default function SignUp() {
           </FormGroup>
           <FormGroup className="mb-4">
             <Label for="username" className="text-white">
-              Username
+              Email
             </Label>
             <Input
               id="username"

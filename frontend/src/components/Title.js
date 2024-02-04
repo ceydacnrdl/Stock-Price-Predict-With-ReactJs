@@ -1,7 +1,5 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 export default function Title() {
   const [auth, setAuth] = useState(false);
@@ -11,10 +9,8 @@ export default function Title() {
 
   useEffect(() => {
     axios
-      .get("/")
+      .get("http://localhost:8081")
       .then((res) => {
-        console.log(res);
-
         if (res.data.Status === "Success") {
           setAuth(true);
           setName(res.data.name);
@@ -23,23 +19,10 @@ export default function Title() {
           setMessage(res.data.Error);
         }
       })
-      .then((err) => {
-        console.log(err);
-      });
+      .then((err) => console.log(err));
   }, []);
 
   return (
-    <div>
-      {auth ? (
-        <div>
-          <h2>hoşgeldin {name}</h2>
-        </div>
-      ) : (
-        <div>
-          {" "}
-          <h3>asdfghjk</h3>
-        </div>
-      )}
-    </div>
+    <div>{auth ? <h2>Hoşgeldin {name}</h2> : <h2>Maalesef {message}</h2>}</div>
   );
 }
